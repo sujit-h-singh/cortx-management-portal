@@ -3,4 +3,3 @@ export interface FilterObject {
     value: any;
     label?: string | number;
   }
-  
