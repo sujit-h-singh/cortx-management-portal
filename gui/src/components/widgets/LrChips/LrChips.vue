@@ -14,8 +14,35 @@
 * For any questions about this software or licensing,
 * please email opensource@seagate.com or cortx-questions@seagate.com.
 */
-export interface FilterObject {
-    key: string;
-    value: any;
-    label?: string | number;
-  }
+<template>
+  <div>
+    <v-chip-group :style="'max-width: ' + width">
+      <v-chip
+        v-for="(chip, i) in chips"
+        :key="i"
+        :close="chip.clearable ? chip.clearable : false"
+        close-label="remove"
+        @click="$emit('chipClick', chip)"
+        @click:close="$emit('removeChip', chip)"
+        class="mr-2"
+      >{{ chip.label ? chip.label : chip.value }}</v-chip>
+    </v-chip-group>
+  </div>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import { LrFilterObject } from "./LrFilterObject.model";
+
+@Component({
+  name: "LrChips",
+  components: {}
+})
+export default class LrChips extends Vue {
+  @Prop({ required: true, default: [] }) private chips: LrFilterObject[];
+  @Prop({ required: false, default: "100%" }) private width: string;
+}
+</script>
+
+<style lang="scss">
+</style>

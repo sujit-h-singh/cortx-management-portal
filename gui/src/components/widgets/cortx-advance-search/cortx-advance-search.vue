@@ -133,7 +133,7 @@
 <script lang="ts">
 import { Component, Vue, Ref, Prop } from "vue-property-decorator";
 import { AdvanceSearchConfig } from "./cortx-advance-search-config.model";
-import { FilterObject } from "./cortx-filter-object.model";
+import { LrFilterObject } from "../LrChips/LrFilterObject.model";
 
 @Component({
   name: "cortx-advance-search"
@@ -145,7 +145,7 @@ export default class CortxAdvanceSearch extends Vue {
   advanceSearchActive: boolean = false;
   menu: boolean = false;
   primarySearch: string = "";
-  searchList: FilterObject[] = [];
+  searchList: LrFilterObject[] = [];
 
   mounted() {
     if (this.config.advanceForm && this.config.advanceForm.length > 0)
