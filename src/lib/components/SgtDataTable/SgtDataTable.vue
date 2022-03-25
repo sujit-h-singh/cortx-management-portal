@@ -175,14 +175,18 @@
                     >{{ item[col.value] }}</slot
                   >
                 </template>
-                <template v-else-if="col.type == 'action'">
+                 <template v-else-if="col.type == 'action'">
                   <div v-if="selected.length < 1" class="action-col">
                     <div
                       class="hover-btn"
                       v-if="actionItems"
                       :style="{ right: col.zoomIcon ? '2rem' : '0rem' }"
                     >
-                      <template v-for="action in actionItems">
+                      <template
+                        v-for="action in col.isDataDependent
+                          ? getDataDependentActions(item['hideActions'])
+                          : actionItems"
+                      >
                         <span :class="'action-btn'" :key="action.name">
                           <SgtSvgIcon
                             :icon="action.path"
@@ -315,6 +319,19 @@ export default class SgtDataTable extends Vue {
    */
   get getSortDir() {
     return this.tableDataConfig.sort ? this.tableDataConfig.sort.dir : false;
+  }
+  /**
+   * Hide and show buttons for current row if it is dependent on row data.
+   * @param rowActionFlags array of flags to hide or show the button.
+   * @returns button list
+   */
+  getDataDependentActions(rowActionFlags: any) {
+    console.log()
+    let rowActions: any[] = [];
+    this.actionItems.forEach((ele, i) => {
+      if (!rowActionFlags[ele.name]) rowActions.push(ele);
+    });
+    return rowActions;
   }
   /**
    * To update the action buttons, custom buttons

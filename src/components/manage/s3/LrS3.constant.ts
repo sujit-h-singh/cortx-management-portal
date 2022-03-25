@@ -29,7 +29,8 @@ export const lrS3AccountConst = {
                 align: "end",
                 sortable: false,
                 zoomIcon: false,
-                actionList: ["delete"]
+                isDataDependent: true,
+                actionList: ["delete", "edit"]
             }
         ],
         headerButton: {

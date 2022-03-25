@@ -174,7 +174,7 @@ import { passwordTest } from "@/lib/services/CommonUtilFunctions";
 export default class LrS3Account extends Vue {
   s3AccountConst: any = JSON.parse(JSON.stringify(lrS3AccountConst));
   s3AccountDetails = {};
-  accessList = [];
+  accessList:any[] = [];
   selectedRecord: any = null;
   passwordDialog = false;
   passwordForm = {
@@ -209,17 +209,22 @@ export default class LrS3Account extends Vue {
   getAccessKeys() {
     Api.getData("s3/access_keys", { isDummy: true }).then((resp: any) => {
       this.accessList = resp["access_keys"];
-      if (this.accessList.length > 1) {
-        this.s3AccountConst.s3AccountTable.headerButton["disabled"] = true;
-        this.s3AccountConst.s3AccountTable.headers[
-          this.s3AccountConst.s3AccountTable.headers.length - 1
-        ]["actionList"] = ["delete"];
-      } else {
-        this.s3AccountConst.s3AccountTable.headerButton["disabled"] = false;
-        this.s3AccountConst.s3AccountTable.headers[
-          this.s3AccountConst.s3AccountTable.headers.length - 1
-        ]["actionList"] = [];
-      }
+      this.accessList = this.accessList.map(ele=>{
+        return {...ele,
+                hideActions: ele.status === 'inactive'? {edit:true}: {edit:false, delete:false}
+        }
+      })
+      // if (this.accessList.length > 1) {
+      //   this.s3AccountConst.s3AccountTable.headerButton["disabled"] = true;
+      //   this.s3AccountConst.s3AccountTable.headers[
+      //     this.s3AccountConst.s3AccountTable.headers.length - 1
+      //   ]["actionList"] = ["delete"];
+      // } else {
+      //   this.s3AccountConst.s3AccountTable.headerButton["disabled"] = false;
+      //   this.s3AccountConst.s3AccountTable.headers[
+      //     this.s3AccountConst.s3AccountTable.headers.length - 1
+      //   ]["actionList"] = [];
+      // }
     });
   }
 
