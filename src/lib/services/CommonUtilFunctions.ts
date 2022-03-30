@@ -13,3 +13,12 @@ export function usernameTest(str: string, reg?: string) {
   const regex = new RegExp(reg ? reg : standardRegex);
   return regex.test(str)
 }
+
+export function jsonTest(str: string) {
+  try {
+    JSON.parse(str);
+  } catch (error) {
+    return false;
+  }
+  return true;
+}
