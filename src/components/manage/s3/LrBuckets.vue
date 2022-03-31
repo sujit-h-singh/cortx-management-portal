@@ -122,7 +122,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import SgtDataTable from "@/lib/components/SgtDataTable/SgtDataTable.vue";
-import { lrS3AccountConst } from "./LrS3.constant";
+import { BucketConst } from "./LrS3.constant";
 import { Api } from "@/services/Api";
 import { SgtDataTableFilterSortPag } from "@/lib/components/SgtDataTable/SgtDataTableFilterSortPag.model";
 import { jsonTest, usernameTest } from "@/lib/services/CommonUtilFunctions";
@@ -134,7 +134,7 @@ import SgtSvgIcon from "@/lib/components/SgtSvgIcon/SgtSvgIcon.vue";
 })
 export default class LrBuckets extends Vue {
   bucketTableConfig: any = JSON.parse(
-    JSON.stringify(lrS3AccountConst.bucketConfig.bucketTable)
+    JSON.stringify(BucketConst.bucketTable)
   );
   userList = [];
   showBucketDialog = false;
